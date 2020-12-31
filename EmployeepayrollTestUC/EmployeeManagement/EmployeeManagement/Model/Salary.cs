@@ -73,6 +73,32 @@ namespace EmployeeManagement.Model
                 this.sqlConnection.Close();
             }
         }
+
+        public double UpdateEmployeeSalary(SalaryUpdateModel model)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand command = new SqlCommand("StoreProUpdateSalary", sqlConnection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@EmployeeId", model.EmployeeId);
+                    command.Parameters.AddWithValue("@EmployeeSalary", model.EmployeeSalary);
+                    this.sqlConnection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Salary Updated Successfully !");
+                }
+                return model.EmployeeSalary;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
     }
 }
 
