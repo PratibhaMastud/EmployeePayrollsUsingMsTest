@@ -313,6 +313,42 @@ namespace EmployeeManagement.Model
                 throw new Exception(e.Message);
             }
         }
+
+        public bool addEmployee(SalaryDetailsModel employeeModel)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("sp_insertDataRecord", this.sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeID", employeeModel.EmployeeId);
+                    cmd.Parameters.AddWithValue("@EmployeeName", employeeModel.EmployeeName);
+                    cmd.Parameters.AddWithValue("@JobDiscription", employeeModel.JobDiscription);
+                    cmd.Parameters.AddWithValue("@Month", employeeModel.Month);
+                    cmd.Parameters.AddWithValue("@EmployeeSalary", employeeModel.EmployeeSalary);
+                    cmd.Parameters.AddWithValue("@SalaryId", employeeModel.SalaryId);
+                    cmd.Parameters.AddWithValue("@date", employeeModel.date);
+                    cmd.Parameters.AddWithValue("@gender", employeeModel.gender);
+                    this.sqlConnection.Open();
+                    var result = cmd.ExecuteNonQuery();
+                    this.sqlConnection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
     }
 }
  

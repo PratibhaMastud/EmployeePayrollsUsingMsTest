@@ -1,5 +1,6 @@
 using EmployeeManagement.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace EmployeeManagementTest
 {
@@ -102,6 +103,29 @@ namespace EmployeeManagementTest
             Salary salary = new Salary();
             int count = salary.getCountSalary();
             Assert.AreEqual(expected, count);
+        }
+
+        /// <summary>
+        /// Givens the employee names when count by salary then return expected count by salary.
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployeeNamess_WhenCountBySalary_ThenReturnExpectedCountBySalary()
+        {
+            bool expected = true;
+            Salary salary = new Salary();
+            SalaryDetailsModel model = new SalaryDetailsModel
+            {
+                EmployeeId = 104,
+                EmployeeName = "Prenit",
+                JobDiscription = "IT",
+                Month = "Feb",
+                EmployeeSalary = 25000,
+                SalaryId = 404,
+                date = new DateTime(2017, 09, 12),
+                gender = 'M'
+            };
+            bool result = salary.addEmployee(model);
+            Assert.AreEqual(expected, result);
         }
     }
 }

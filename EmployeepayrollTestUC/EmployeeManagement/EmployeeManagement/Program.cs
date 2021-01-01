@@ -23,12 +23,22 @@ namespace EmployeeManagement
              Console.WriteLine(countSal);*/
             /* int counsum = salary.getSumSalary();
              Console.WriteLine(counsum);*/
-            int countA = salary.getAverageSalary();
-            Console.WriteLine(countA);
+            /*int countA = salary.getAverageSalary();
+            Console.WriteLine(countA);*/
             /*int countMax = salary.getMaxSalary();
             Console.WriteLine(countMax);*/
             /*int countMin = salary.getMinSalary();
             Console.WriteLine(countMin);*/
+
+            salaryDetailsModel.EmployeeId = 104;
+            salaryDetailsModel.EmployeeName = "Prenit";
+            salaryDetailsModel.JobDiscription = "IT";
+            salaryDetailsModel.Month = "Feb";
+            salaryDetailsModel.EmployeeSalary = 25000;
+            salaryDetailsModel.SalaryId = 404;
+            salaryDetailsModel.date = new DateTime(2017, 09, 12);
+            salaryDetailsModel.gender = 'M';
+            salary.addEmployee(salaryDetailsModel);
         }
     }
 }
