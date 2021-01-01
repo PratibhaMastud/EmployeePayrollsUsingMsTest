@@ -12,11 +12,14 @@ namespace EmployeeManagement
             SalaryUpdateModel salaryUpdateModel = new SalaryUpdateModel();
             Salary salary = new Salary();
             salary.checkConnection();
-            //int count = salary.getAllEmployee();
-            //Console.WriteLine(count);
+          //int count = salary.getAllEmployee();
+          //Console.WriteLine(count);
             salaryUpdateModel.EmployeeId = 101;
             salaryUpdateModel.EmployeeSalary = 300000.00;
-            salary.UpdateEmployeeSalary(salaryUpdateModel);
+            //salary.UpdateEmployeeSalary(salaryUpdateModel);
+             int count = salary.getEmployeeDataWithGivenRange();
+             Console.WriteLine(count);
+
         }
     }
 }

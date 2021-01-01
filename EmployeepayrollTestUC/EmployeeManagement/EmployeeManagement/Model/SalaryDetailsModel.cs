@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.OData.Edm;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,5 +13,8 @@ namespace EmployeeManagement.Model
         public string Month { get; set; }
         public double EmployeeSalary { get; set; }
         public int SalaryId { get; set; }
+        public Date date { get; set; }
+
+
     }
 }

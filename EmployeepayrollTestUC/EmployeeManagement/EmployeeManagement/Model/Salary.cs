@@ -99,6 +99,44 @@ namespace EmployeeManagement.Model
                 this.sqlConnection.Close();
             }
         }
+        public int getEmployeeDataWithGivenRange()
+        {
+            try
+            {
+                int count = 0;
+                SalaryDetailsModel employeeModel = new SalaryDetailsModel();
+                using (this.sqlConnection)
+                {
+                    string query = @"select count(EmployeeName) from SalaryDetailsModel where date between cast('2010-01-01' as date) and CAST('2020-01-01' as date)";
+                    SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
+                    this.sqlConnection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            count = sqlDataReader.GetInt32(0);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.sqlConnection.Close();
+                    return count;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
     }
 }
+
 

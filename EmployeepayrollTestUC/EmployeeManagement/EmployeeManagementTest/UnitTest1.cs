@@ -31,6 +31,18 @@ namespace EmployeeManagementTest
             double salary = salary1.UpdateEmployeeSalary(model);
             Assert.AreEqual(expectedResult, salary);
         }
+
+        /// <summary>
+        /// Get count of employee from perticular range
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_whenCount_ShouldReturnCount()
+        {
+            int expectedResult = 3;
+            Salary salary = new Salary();
+            int result = salary.getEmployeeDataWithGivenRange();
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 
 }
