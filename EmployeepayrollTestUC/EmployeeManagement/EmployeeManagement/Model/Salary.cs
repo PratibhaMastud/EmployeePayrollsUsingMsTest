@@ -136,7 +136,184 @@ namespace EmployeeManagement.Model
                 this.sqlConnection.Close();
             }
         }
+
+        /// <summary>
+        /// Gets the Arithmetic Functions of salary.
+        /// </summary>
+        public int getSumSalary()
+        {
+            try
+            {
+                {
+                    this.sqlConnection.Close(); int sum = 0;
+                    SalaryDetailsModel employeeModel = new SalaryDetailsModel();
+                    using (this.sqlConnection)
+                    {
+                        string query = @"select sum(EmployeeSalary) from  SalaryDetailsModel;";
+                        SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
+                        this.sqlConnection.Open();
+                        SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                        if (sqlDataReader.HasRows)
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                sum = (int)sqlDataReader.GetDecimal(0);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No Data Found");
+                        }
+                        sqlDataReader.Close();
+                        this.sqlConnection.Close();
+                        return sum;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        
+        public int getAverageSalary()
+        {
+            try
+            {
+                int avg = 0;
+                SalaryDetailsModel employeeModel = new SalaryDetailsModel();
+                using (this.sqlConnection)
+                {
+                    string query = @"select avg(EmployeeSalary) from  SalaryDetailsModel where Gender =  'M';";
+                    SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
+                    this.sqlConnection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            avg = (int)sqlDataReader.GetDecimal(0);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.sqlConnection.Close();
+                    return avg;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public int getMinSalary()
+        {
+            try
+            {
+                int min = 0;
+                SalaryDetailsModel employeeModel = new SalaryDetailsModel();
+                using (this.sqlConnection)
+                {
+                    string query = @"select min(EmployeeSalary) from  SalaryDetailsModel where Gender =  'M';";
+                    SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
+                    this.sqlConnection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            min = (int)sqlDataReader.GetDecimal(0);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.sqlConnection.Close();
+                    return min;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public int getMaxSalary()
+        {
+            try
+            {
+                int max = 0;
+                SalaryDetailsModel employeeModel = new SalaryDetailsModel();
+                using (this.sqlConnection)
+                {
+                    string query = @"select max(EmployeeSalary) from  SalaryDetailsModel;";
+                    SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
+                    this.sqlConnection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            max = (int)sqlDataReader.GetDecimal(0);
+                            Console.WriteLine(max);
+
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.sqlConnection.Close();
+                    return max;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public int getCountSalary()
+        {
+            try
+            {
+                int count = 0;
+                SalaryDetailsModel employeeModel = new SalaryDetailsModel();
+                using (this.sqlConnection)
+                {
+                    string query = @"select count(EmployeeSalary) from  SalaryDetailsModel where Gender = 'M';";
+                    SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
+                    this.sqlConnection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            count = sqlDataReader.GetInt32(0);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.sqlConnection.Close();
+                }
+                return count;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
-
+ 
 

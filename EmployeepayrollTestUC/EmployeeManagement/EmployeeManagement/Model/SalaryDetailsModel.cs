@@ -14,7 +14,6 @@ namespace EmployeeManagement.Model
         public double EmployeeSalary { get; set; }
         public int SalaryId { get; set; }
         public Date date { get; set; }
-
-
+        public char gender { get; set; }
     }
 }

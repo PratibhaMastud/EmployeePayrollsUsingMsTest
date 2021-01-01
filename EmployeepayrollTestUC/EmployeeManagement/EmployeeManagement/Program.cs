@@ -17,9 +17,18 @@ namespace EmployeeManagement
             salaryUpdateModel.EmployeeId = 101;
             salaryUpdateModel.EmployeeSalary = 300000.00;
             //salary.UpdateEmployeeSalary(salaryUpdateModel);
-             int count = salary.getEmployeeDataWithGivenRange();
-             Console.WriteLine(count);
-
+            //int count = salary.getEmployeeDataWithGivenRange();
+            //Console.WriteLine(count);
+            /* int countSal = salary.getCountSalary();
+             Console.WriteLine(countSal);*/
+            /* int counsum = salary.getSumSalary();
+             Console.WriteLine(counsum);*/
+            int countA = salary.getAverageSalary();
+            Console.WriteLine(countA);
+            /*int countMax = salary.getMaxSalary();
+            Console.WriteLine(countMax);*/
+            /*int countMin = salary.getMinSalary();
+            Console.WriteLine(countMin);*/
         }
     }
 }
