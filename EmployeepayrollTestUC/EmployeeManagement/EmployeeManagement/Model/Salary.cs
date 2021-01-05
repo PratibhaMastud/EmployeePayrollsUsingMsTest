@@ -387,6 +387,32 @@ namespace EmployeeManagement.Model
                 this.sqlConnection.Close();
             }
         }
+
+        public double updateEmployeeSalary(SalaryDetailsModel employeeModel)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("StoreProUpdateSalary", this.sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeName", employeeModel.EmployeeName);
+                    cmd.Parameters.AddWithValue("@EmployeeSalary", employeeModel.EmployeeSalary);
+                    this.sqlConnection.Open();
+                    var result = cmd.ExecuteNonQuery();
+                    this.sqlConnection.Close();
+                }
+                return employeeModel.EmployeeSalary;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
     }
 }
 

@@ -92,5 +92,20 @@ namespace EmployeeManagementTest
             DateTime endTimeWithThread = DateTime.Now;
             Console.WriteLine("Duration with thread = " + (startTimeWithThread - endTimeWithThread));
         }
+
+        [TestMethod]
+        public void GivenMethod_ShouldUpdateSalary()
+        {
+             Salary salary = new Salary();
+            SalaryDetailsModel model = new SalaryDetailsModel()
+            {
+                EmployeeName = "supu",
+                EmployeeSalary = 400000.00
+            };
+            DateTime startDataTimeforDB = DateTime.Now;
+            salary.updateEmployeeSalary(model);
+            DateTime stopDateTimeforDB = DateTime.Now;
+            Console.WriteLine("Duration for Updatation in DB : " + (stopDateTimeforDB - startDataTimeforDB));
+        }
     }
 }
