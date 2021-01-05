@@ -105,15 +105,13 @@ namespace EmployeeManagementTest
             Assert.AreEqual(expected, count);
         }
 
-        /// <summary>
-        /// Givens the employee names when count by salary then return expected count by salary.
-        /// </summary>
-        [TestMethod]
-        public void GivenEmployeeNamess_WhenCountBySalary_ThenReturnExpectedCountBySalary()
+        
+       /* [TestMethod]
+        public void GivenEmployeeDetails_WhenAddedDatainEmployeePayroll_ThenReturnTrue()
         {
             bool expected = true;
             Salary salary = new Salary();
-            SalaryDetailsModel model = new SalaryDetailsModel
+            SalaryDetailsModel model = new SalaryDetailsModel()
             {
                 EmployeeId = 104,
                 EmployeeName = "Prenit",
@@ -126,7 +124,7 @@ namespace EmployeeManagementTest
             };
             bool result = salary.addEmployee(model);
             Assert.AreEqual(expected, result);
-        }
+        }*/
     }
 }
 

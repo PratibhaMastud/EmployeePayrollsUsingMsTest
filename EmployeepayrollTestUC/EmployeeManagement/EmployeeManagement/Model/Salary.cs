@@ -80,7 +80,7 @@ namespace EmployeeManagement.Model
             {
                 using (this.sqlConnection)
                 {
-                    SqlCommand command = new SqlCommand("StoreProUpdateSalary", sqlConnection);
+                    SqlCommand command = new SqlCommand("StoreUpdateSalary", sqlConnection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@EmployeeId", model.EmployeeId);
                     command.Parameters.AddWithValue("@EmployeeSalary", model.EmployeeSalary);
@@ -175,7 +175,7 @@ namespace EmployeeManagement.Model
                 throw new Exception(e.Message);
             }
         }
-        
+
         public int getAverageSalary()
         {
             try
@@ -285,7 +285,7 @@ namespace EmployeeManagement.Model
             try
             {
                 int count = 0;
-                SalaryDetailsModel employeeModel = new SalaryDetailsModel();
+                SalaryDetailsModel employeeModel = new SalaryDetailsModel();    
                 using (this.sqlConnection)
                 {
                     string query = @"select count(EmployeeSalary) from  SalaryDetailsModel where Gender = 'M';";
@@ -349,7 +349,44 @@ namespace EmployeeManagement.Model
                 this.sqlConnection.Close();
             }
         }
+
+        public bool AddNewEmployeeWithSalary(SalaryModel salaryModel)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("sp_insertTwotable", sqlConnection);
+
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@emp_id", salaryModel.emp_id);
+                    sqlCommand.Parameters.AddWithValue("@basic_pay", salaryModel.basic_pay);
+                    sqlCommand.Parameters.AddWithValue("@deductions", salaryModel.deductions);
+                    sqlCommand.Parameters.AddWithValue("@taxable_pay", salaryModel.taxable_pay);
+                    sqlCommand.Parameters.AddWithValue("@tax", salaryModel.tax);
+                    sqlCommand.Parameters.AddWithValue("@net_pay", salaryModel.net_pay);
+                    sqlCommand.Parameters.AddWithValue("@EmployeeId", salaryModel.EmployeeId);
+
+                    this.sqlConnection.Open();
+                    var result = sqlCommand.ExecuteNonQuery();
+                    this.sqlConnection.Close();
+                    if (result == 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
     }
 }
- 
+
 
