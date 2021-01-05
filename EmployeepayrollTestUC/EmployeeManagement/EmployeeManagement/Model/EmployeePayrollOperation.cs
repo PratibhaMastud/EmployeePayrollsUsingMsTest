@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EmployeeManagement.Model
 {
@@ -21,6 +22,21 @@ namespace EmployeeManagement.Model
                 Console.WriteLine("Emplyee added" + employeeData.EmployeeName);
             });
             Console.WriteLine(this.employeePayrollList.ToString());
+        }
+
+        public void addEmployeeWithThread(List<SalaryDetailsModel> employeelist)
+        {
+            employeelist.ForEach(employeeData =>
+            {
+                Task thread = new Task(() =>
+                {
+                    this.addEmployeePayroll(employeeData);
+                    Console.WriteLine("Employee added =" + employeeData.EmployeeName);
+                });
+
+                thread.Start();
+            });
+            Console.WriteLine(this.employeePayrollList.Count);
         }
 
         /// <summary>

@@ -24,28 +24,42 @@ namespace EmployeeManagementTest
             employeeDetails.Add(new SalaryDetailsModel(EmployeeId: 10, EmployeeName: "chetna", JobDiscription: "EXTC", Month: "jan", EmployeeSalary: 44000, SalaryId: 7, date: new DateTime(2011 - 12 - 25), gender: 'F'));
 
             EmployeePayrollOperation employeePayrollOperation = new EmployeePayrollOperation();
-            DateTime statDateTime = DateTime.Now;
+            /*DateTime statDateTime = DateTime.Now;
             employeePayrollOperation.addEmployeePayroll(employeeDetails);
             DateTime stopDateTime = DateTime.Now;
             Console.WriteLine("Duration of Insertion in list without using thread "+ (stopDateTime - statDateTime));
-
+*/
             Salary salary = new Salary();
             SalaryDetailsModel model = new SalaryDetailsModel()
             {
-                EmployeeId = 15,
-                EmployeeName = "Manish",
-                JobDiscription = "Marketing",
-                Month = "jan",
-                EmployeeSalary = 450000.00,
+                EmployeeId = 17,
+                EmployeeName = "rajesh",
+                JobDiscription = "EXTC",
+                Month = "March",
+                EmployeeSalary = 50000.00,
                 SalaryId = 22,
-                date = new DateTime(2010, 2, 12),
+                date = new DateTime(2019, 2, 1),
                 gender = 'M'
 
             };
-            DateTime startDateTime = DateTime.Now;
+
+           /* DateTime startDateTime = DateTime.Now;
             salary.addEmployee(model);
             DateTime stopDateAndTime = DateTime.Now;
             Console.WriteLine("Duration for Insertion in DataBase without thread : " + (stopDateAndTime - startDateTime));
+          */ 
+            //Add Employee with using thread
+            DateTime startTime1 = DateTime.Now;
+            salary.addEmployee(model); 
+            DateTime stopTime1 = DateTime.Now; 
+            Console.WriteLine("Duration without thread = " + (stopTime1 - startTime1));
+
+
+            DateTime startTimeWithThread = DateTime.Now;
+            employeePayrollOperation.addEmployeeWithThread(employeeDetails);
+            DateTime endTimeWithThread = DateTime.Now;
+            Console.WriteLine("Duration with thread = " + (startTimeWithThread - endTimeWithThread));
+
         }
     }
 }
