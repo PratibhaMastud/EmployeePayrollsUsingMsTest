@@ -33,7 +33,6 @@ namespace EmployeeManagement.Model
                     this.addEmployeePayroll(employeeData);
                     Console.WriteLine("Employee added =" + employeeData.EmployeeName);
                 });
-
                 thread.Start();
             });
             Console.WriteLine(this.employeePayrollList.Count);
