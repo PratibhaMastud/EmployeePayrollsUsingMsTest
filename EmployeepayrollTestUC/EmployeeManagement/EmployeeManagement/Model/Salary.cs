@@ -328,9 +328,11 @@ namespace EmployeeManagement.Model
                     cmd.Parameters.AddWithValue("@JobDiscription", employeeModel.JobDiscription);
                     cmd.Parameters.AddWithValue("@Month", employeeModel.Month);
                     cmd.Parameters.AddWithValue("@EmployeeSalary", employeeModel.EmployeeSalary);
-                    cmd.Parameters.AddWithValue("@SalaryId", employeeModel.SalaryId);
                     cmd.Parameters.AddWithValue("@date", employeeModel.date);
+                    cmd.Parameters.AddWithValue("@SalaryId", employeeModel.CompanyId);
                     cmd.Parameters.AddWithValue("@gender", employeeModel.gender);
+                    cmd.Parameters.AddWithValue("@SalaryId", employeeModel.SalaryId);
+
                     this.sqlConnection.Open();
                     var result = cmd.ExecuteNonQuery();
                     this.sqlConnection.Close();
@@ -360,13 +362,11 @@ namespace EmployeeManagement.Model
                     SqlCommand sqlCommand = new SqlCommand("sp_insertTwotable", sqlConnection);
 
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@emp_id", salaryModel.emp_id);
-                    sqlCommand.Parameters.AddWithValue("@basic_pay", salaryModel.basic_pay);
-                    sqlCommand.Parameters.AddWithValue("@deductions", salaryModel.deductions);
+                    sqlCommand.Parameters.AddWithValue("@SalaryId", salaryModel.SalaryId);
+                    sqlCommand.Parameters.AddWithValue("@deductions", salaryModel.deduction);
                     sqlCommand.Parameters.AddWithValue("@taxable_pay", salaryModel.taxable_pay);
                     sqlCommand.Parameters.AddWithValue("@tax", salaryModel.tax);
-                    sqlCommand.Parameters.AddWithValue("@net_pay", salaryModel.net_pay);
-                    sqlCommand.Parameters.AddWithValue("@EmployeeId", salaryModel.EmployeeId);
+                    sqlCommand.Parameters.AddWithValue("@net_salary", salaryModel.net_salary);
 
                     this.sqlConnection.Open();
                     var result = sqlCommand.ExecuteNonQuery();
@@ -403,6 +403,66 @@ namespace EmployeeManagement.Model
                     this.sqlConnection.Close();
                 }
                 return employeeModel.EmployeeSalary;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
+
+        public bool AddNewEmployeeDEmo(SalaryDetailsModel model, Company companyModel)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("sp_insertDataRecord", this.sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@EmployeeId", model.EmployeeId);
+                command.Parameters.AddWithValue("@EmployeeName", model.EmployeeName);
+                command.Parameters.AddWithValue("@JobDiscription", model.JobDiscription);
+                command.Parameters.AddWithValue("@Month", model.Month);
+                command.Parameters.AddWithValue("@EmployeeSalary", model.EmployeeSalary);
+                command.Parameters.AddWithValue("@date", model.date);
+                command.Parameters.AddWithValue("@CompanyId", model.CompanyId);
+                command.Parameters.AddWithValue("@gender", model.gender);
+                command.Parameters.AddWithValue("@SalaryId", model.SalaryId);
+
+
+                this.sqlConnection.Open();
+                command.ExecuteNonQuery();
+                this.sqlConnection.Close();
+
+                int SalaryId = model.EmployeeId;
+                double deduction = model.EmployeeSalary * 0.2;
+                double taxable_pay = model.EmployeeSalary - deduction;
+                double tax = taxable_pay * 0.1;
+                double net_salary = model.EmployeeSalary - tax;
+                SqlCommand sqlCommand = new SqlCommand("sp_insertTwotable", sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@SalaryId", (model.EmployeeId));
+                sqlCommand.Parameters.AddWithValue("@deduction", (model.EmployeeSalary * 0.2));
+                sqlCommand.Parameters.AddWithValue("@taxable_pay", (model.EmployeeSalary - deduction));
+                sqlCommand.Parameters.AddWithValue("@tax", (taxable_pay * 0.1));
+                sqlCommand.Parameters.AddWithValue("@net_salary", (model.EmployeeSalary - tax));
+                this.sqlConnection.Open();
+                var result1 = sqlCommand.ExecuteNonQuery();
+                this.sqlConnection.Close();
+
+                SqlCommand companySqlCommand = new SqlCommand("spInsertCompany", sqlConnection);
+                companySqlCommand.CommandType = CommandType.StoredProcedure;
+                companySqlCommand.Parameters.AddWithValue("@CompanyId", companyModel.CompanyId);
+                companySqlCommand.Parameters.AddWithValue("@ComapnyName", companyModel.CompanyName);
+                this.sqlConnection.Open();
+                var result2 = companySqlCommand.ExecuteNonQuery();
+                this.sqlConnection.Close();
+                if (result2 == 0)
+                {
+                    return false;
+                }
+                return true;
             }
             catch (Exception e)
             {

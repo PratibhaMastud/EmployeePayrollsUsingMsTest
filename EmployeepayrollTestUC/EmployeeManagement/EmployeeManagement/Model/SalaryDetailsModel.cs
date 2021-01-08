@@ -11,20 +11,24 @@ namespace EmployeeManagement.Model
         public string JobDiscription { get; set; }
         public string Month { get; set; }
         public double EmployeeSalary { get; set; }
-        public int SalaryId { get; set; }
         public DateTime date { get; set; }
+        public int CompanyId { get; set; }
         public char gender { get; set; }
+        public int SalaryId { get; set; }
 
-        public SalaryDetailsModel(int EmployeeId, string EmployeeName, string JobDiscription, string Month, double EmployeeSalary, int SalaryId, DateTime date, char gender)
+
+        public SalaryDetailsModel(int EmployeeId, string EmployeeName, string JobDiscription, string Month, double EmployeeSalary, DateTime date, int CompanyId, char gender, int SalaryId)
         {
             this.EmployeeId = EmployeeId;
             this.EmployeeName = EmployeeName;
             this.JobDiscription = JobDiscription;
             this.Month = Month;
             this.EmployeeSalary = EmployeeSalary;
-            this.SalaryId = SalaryId;
             this.date = date;
+            this.CompanyId = CompanyId;
             this.gender = gender;
+            this.SalaryId = SalaryId;
+
         }
 
         public SalaryDetailsModel()

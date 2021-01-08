@@ -7,13 +7,11 @@ namespace EmployeeManagement.Model
 {
     public class SalaryModel
     {
-        public int emp_id { get; set; }
-        public double basic_pay { get; set; }
-        public double deductions { get; set; }
+        public int SalaryId { get; set; }
+        public double deduction { get; set; }
         public double taxable_pay { get; set; }
         public double tax { get; set; }
-        public double net_pay { get; set; }
-        public int EmployeeId { get; set; }
+        public double net_salary { get; set; }
 
     }
 }

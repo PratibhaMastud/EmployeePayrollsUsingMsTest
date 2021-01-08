@@ -105,26 +105,31 @@ namespace EmployeeManagementTest
             Assert.AreEqual(expected, count);
         }
 
-        
-       /* [TestMethod]
-        public void GivenEmployeeDetails_WhenAddedDatainEmployeePayroll_ThenReturnTrue()
+        [TestMethod]
+        public void GivenQuery_WhenInsertInto_ShouldAbleToInsertIntoTwoTableDemo()
         {
-            bool expected = true;
+            bool expectedResult = true;
             Salary salary = new Salary();
             SalaryDetailsModel model = new SalaryDetailsModel()
             {
-                EmployeeId = 104,
-                EmployeeName = "Prenit",
-                JobDiscription = "IT",
-                Month = "Feb",
-                EmployeeSalary = 25000,
-                SalaryId = 404,
-                date = new DateTime(2017, 09, 12),
-                gender = 'M'
+                EmployeeId     = 1,
+                EmployeeName   = "Pritesh",
+                JobDiscription = "Finance",
+                Month          = "jan",
+                EmployeeSalary = 600000.00,
+                date           = new DateTime(2018, 12, 11),
+                CompanyId      = 102,
+                gender         = 'M',
+                SalaryId = 1
             };
-            bool result = salary.addEmployee(model);
-            Assert.AreEqual(expected, result);
-        }*/
+            Company companyModel = new Company()
+            {
+                CompanyId = model.EmployeeId,
+                CompanyName = "IBM"
+            };
+            bool result = salary.AddNewEmployeeDEmo(model, companyModel);
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 }
 
