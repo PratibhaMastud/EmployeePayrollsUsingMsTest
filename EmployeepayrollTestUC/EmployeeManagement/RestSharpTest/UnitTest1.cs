@@ -22,10 +22,10 @@ namespace RestSharpTest
         public static List<EmployeePayroll> EmployeeList()
         {
             List<EmployeePayroll> employees = new List<EmployeePayroll>();
-            employees.Add(new EmployeePayroll("minal", "30000"));
-            employees.Add(new EmployeePayroll("mahesh", "50000"));
-            employees.Add(new EmployeePayroll("Ramesh", "50000"));
-            employees.Add(new EmployeePayroll("umesh", "45000"));
+            employees.Add(new EmployeePayroll("nalmi", "30000"));
+            employees.Add(new EmployeePayroll("ahesh", "50000"));
+            employees.Add(new EmployeePayroll("Ramu", "50000"));
+            employees.Add(new EmployeePayroll("mesh", "45000"));
             return employees;
         }
     }
@@ -58,13 +58,13 @@ namespace RestSharpTest
             //assert
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
             List<EmployeePayroll> listResponse = JsonConvert.DeserializeObject<List<EmployeePayroll>>(response.Content);
-            Assert.AreEqual(4, listResponse.Count);
+            Assert.AreEqual(6, listResponse.Count);
             foreach (EmployeePayroll e in listResponse)
             {
                 System.Console.Write("id: " + e.id + "Employee Name: " + e.Name + "Salary: " + e.Salary);
             }
         }
-
+        
         /// <summary>
         /// Here We adding new Employee
         /// </summary>
@@ -73,14 +73,14 @@ namespace RestSharpTest
         {
             RestRequest request = new RestRequest("/EmployeePayroll", Method.POST);
             JObject jObjectbody = new JObject();
-            jObjectbody.Add("Name", "Imran");
+            jObjectbody.Add("Name", "Vidyadhar");
             jObjectbody.Add("Salary", "90000");
             request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             Assert.AreEqual(response.StatusCode, HttpStatusCode.Created);
             EmployeePayroll employee = JsonConvert.DeserializeObject<EmployeePayroll>(response.Content);
             //Employee dataResponse = JsonConvert.DeserializeObject<Employee>(response.Content);
-            Assert.AreEqual("Imran", employee.Name);
+            Assert.AreEqual("Vidyadhar", employee.Name);
             Assert.AreEqual("90000", employee.Salary);
         }
 
@@ -90,7 +90,7 @@ namespace RestSharpTest
             List<EmployeePayroll> list = EmployeePayroll.EmployeeList();
             foreach (EmployeePayroll e in list)
             {
-                RestRequest request = new RestRequest("/employee", Method.POST);
+                RestRequest request = new RestRequest("/EmployeePayroll", Method.POST);
                 JObject jObjectbody = new JObject();
                 jObjectbody.Add("name", e.Name);
                 jObjectbody.Add("Salary", e.Salary);
@@ -100,7 +100,39 @@ namespace RestSharpTest
             IRestResponse responses = GetEmployeePayrollList();
             Assert.AreEqual(responses.StatusCode, HttpStatusCode.OK);
             List<EmployeePayroll> dataResponse = JsonConvert.DeserializeObject<List<EmployeePayroll>>(responses.Content);
-            Assert.AreEqual(5, dataResponse.Count);
+            Assert.AreEqual(15, dataResponse.Count);
+            foreach (EmployeePayroll e in dataResponse)
+            {
+                System.Console.Write("id: " + e.id + "Name: " + e.Name + "Salary: " + e.Salary);
+            }
+        }
+
+        [TestMethod]
+        public void GivenEmployee_OnPut_ShouldReturnUpdatedEmpDetails()
+        {
+            RestRequest request = new RestRequest("/EmployeePayroll/4", Method.PUT);
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("Name", "Prati");
+            jObjectbody.Add("Salary", "45000");
+            request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            EmployeePayroll dataResponse = JsonConvert.DeserializeObject<EmployeePayroll>(response.Content);
+            Assert.AreEqual("Prati", dataResponse.Name);
+            Assert.AreEqual("45000", dataResponse.Salary);
+            System.Console.WriteLine(response.Content);
+        }
+
+        [TestMethod]
+        public void GivenEmployee_OnDelete_ShouldEmpDetails()
+        {
+            RestRequest request = new RestRequest("/EmployeePayroll/11", Method.DELETE);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            IRestResponse responses = GetEmployeePayrollList();
+            Assert.AreEqual(responses.StatusCode, HttpStatusCode.OK);
+            List<EmployeePayroll> dataResponse = JsonConvert.DeserializeObject<List<EmployeePayroll>>(responses.Content);
+            Assert.AreEqual(14, dataResponse.Count);
             foreach (EmployeePayroll e in dataResponse)
             {
                 System.Console.Write("id: " + e.id + "Name: " + e.Name + "Salary: " + e.Salary);
