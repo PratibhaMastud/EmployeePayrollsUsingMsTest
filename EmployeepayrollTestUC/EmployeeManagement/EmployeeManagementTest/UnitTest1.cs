@@ -187,6 +187,27 @@ namespace EmployeeManagementTest
             bool insertResult = salary.addEmployee(modelSal);
             Assert.AreEqual(expectedInsertResult, insertResult);
         }
+
+        [TestMethod]
+        public void GiveQuery_WhenInsert_ShouldPerformInsertionASInNewDBStructure()
+        {
+            bool expectedInsertResult = true;
+            Salary salary = new Salary();
+            SalaryDetailsModel modelSal = new SalaryDetailsModel()
+            {
+                EmployeeId = 2,
+                EmployeeName = "Prianita",
+                JobDiscription = "Finance",
+                Month = "jan",
+                EmployeeSalary = 600000.00,
+                date = new DateTime(2018, 12, 11),
+                CompanyId = 102,
+                gender = 'M',
+                SalaryId = 2
+            };
+            bool insertResult = salary.addEmployee(modelSal);
+            Assert.AreEqual(expectedInsertResult, insertResult);
+        }
     }
 }
 
