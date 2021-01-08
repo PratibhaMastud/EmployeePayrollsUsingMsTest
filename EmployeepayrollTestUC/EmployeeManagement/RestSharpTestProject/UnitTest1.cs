@@ -1,18 +1,17 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Net;
-using System;
-using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
+using System.Collections.Generic;
+using System.Net;
 
-namespace RestSharpTest
+namespace RestSharpTestProject
 {
     public class EmployeePayroll
     {
         public int id { get; set; }
         public string Name { get; set; }
-        public string Salary { get; set; }
+        public int Salary { get; set; }
     }
 
     [TestClass]
@@ -43,7 +42,7 @@ namespace RestSharpTest
             //assert
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
             List<EmployeePayroll> listResponse = JsonConvert.DeserializeObject<List<EmployeePayroll>>(response.Content);
-            Assert.AreEqual(4, listResponse.Count);
+            Assert.AreEqual(2, listResponse.Count);
             foreach (EmployeePayroll e in listResponse)
             {
                 System.Console.Write("id: " + e.id + "Employee Name: " + e.Name + "Salary: " + e.Salary);
@@ -59,14 +58,14 @@ namespace RestSharpTest
             RestRequest request = new RestRequest("/EmployeePayroll", Method.POST);
             JObject jObjectbody = new JObject();
             jObjectbody.Add("Name", "Imran");
-            jObjectbody.Add("Salary", "90000");
+            jObjectbody.Add("Salary", 90000);
             request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             Assert.AreEqual(response.StatusCode, HttpStatusCode.Created);
             EmployeePayroll employee = JsonConvert.DeserializeObject<EmployeePayroll>(response.Content);
             //Employee dataResponse = JsonConvert.DeserializeObject<Employee>(response.Content);
             Assert.AreEqual("Imran", employee.Name);
-            Assert.AreEqual("90000", employee.Salary);
+            Assert.AreEqual(90000, employee.Salary);
         }
     }
 }

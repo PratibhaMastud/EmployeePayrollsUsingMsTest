@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement", "Emplo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagementTest", "EmployeeManagementTest\EmployeeManagementTest.csproj", "{3EC8879C-8416-45EA-AC6D-C8C351A83D8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharpTest", "RestSharpTest\RestSharpTest.csproj", "{C0CB43A1-5088-4649-AD27-CFFEC990DC35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestSharpTest", "RestSharpTest\RestSharpTest.csproj", "{C0CB43A1-5088-4649-AD27-CFFEC990DC35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -64,7 +64,7 @@ namespace EmployeeManagement
             salaryModelobj.EmployeeId = 101;
             salary.AddNewEmployeeWithSalary(salaryModelobj);*/
 
-            Console.WriteLine("Employee payroll using thread ");
+            /*Console.WriteLine("Employee payroll using thread ");
             string[] words = CreateWordArray(@"http://www.gutenberg.org/files/54700/54700-0.txt");
             #region ParallelTasks
             Parallel.Invoke(() =>
@@ -120,6 +120,7 @@ namespace EmployeeManagement
             return blog.Split(
                 new char[] { ' ', '\u000A', ',', '.', ';', ':', '-', '_', '/' },
                 StringSplitOptions.RemoveEmptyEntries);
+        }*/
         }
     }
 }
