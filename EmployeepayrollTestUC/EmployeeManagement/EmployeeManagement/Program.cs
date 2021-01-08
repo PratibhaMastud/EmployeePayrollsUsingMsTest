@@ -44,10 +44,8 @@ namespace EmployeeManagement
             salaryDetailsModel.CompanyId = 102;
             salaryDetailsModel.gender = 'M';
             salaryDetailsModel.SalaryId = 1;
-            Company companyModel = new Company();
-            companyModel.CompanyId = salaryDetailsModel.EmployeeId;
-            companyModel.CompanyName = "IBM";
-            salary.AddNewEmployeeDEmo(salaryDetailsModel, companyModel);
+            
+            salary.AddNewEmployeeDEmo(salaryDetailsModel);
 
 
             /* //salary.addEmployee(salaryDetailsModel);

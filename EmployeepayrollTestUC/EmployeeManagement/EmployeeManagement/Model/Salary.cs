@@ -414,7 +414,7 @@ namespace EmployeeManagement.Model
             }
         }
 
-        public bool AddNewEmployeeDEmo(SalaryDetailsModel model, Company companyModel)
+        public bool AddNewEmployeeDEmo(SalaryDetailsModel model)
         {
             try
             {
@@ -450,15 +450,7 @@ namespace EmployeeManagement.Model
                 this.sqlConnection.Open();
                 var result1 = sqlCommand.ExecuteNonQuery();
                 this.sqlConnection.Close();
-
-                SqlCommand companySqlCommand = new SqlCommand("spInsertCompany", sqlConnection);
-                companySqlCommand.CommandType = CommandType.StoredProcedure;
-                companySqlCommand.Parameters.AddWithValue("@CompanyId", companyModel.CompanyId);
-                companySqlCommand.Parameters.AddWithValue("@ComapnyName", companyModel.CompanyName);
-                this.sqlConnection.Open();
-                var result2 = companySqlCommand.ExecuteNonQuery();
-                this.sqlConnection.Close();
-                if (result2 == 0)
+                if (result1 == 0)
                 {
                     return false;
                 }

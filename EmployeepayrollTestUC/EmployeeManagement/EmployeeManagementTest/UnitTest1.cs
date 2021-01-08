@@ -1,6 +1,7 @@
 using EmployeeManagement.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace EmployeeManagementTest
 {
@@ -110,7 +111,7 @@ namespace EmployeeManagementTest
         {
             bool expectedResult = true;
             Salary salary = new Salary();
-            SalaryDetailsModel model = new SalaryDetailsModel()
+            SalaryDetailsModel empmodel = new SalaryDetailsModel()
             {
                 EmployeeId     = 1,
                 EmployeeName   = "Pritesh",
@@ -122,14 +123,71 @@ namespace EmployeeManagementTest
                 gender         = 'M',
                 SalaryId = 1
             };
-            Company companyModel = new Company()
-            {
-                CompanyId = model.EmployeeId,
-                CompanyName = "IBM"
-            };
-            bool result = salary.AddNewEmployeeDEmo(model, companyModel);
+            bool result = salary.AddNewEmployeeDEmo(empmodel);
             Assert.AreEqual(expectedResult, result);
+        }
+
+        [TestMethod]
+        public void GivenQuery_WhenSelect_ShouldRetrieveAllData()
+        {
+            int expectedRetrieveResult = 17;
+            Salary salary = new Salary();
+            int result = salary.getAllEmployee();
+            Assert.AreEqual(expectedRetrieveResult, result);
+        }
+
+        /// <summary>
+        /// UC 10 : Ensure working of update query to check  updated employee salary in new db structure
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_ShouldUpdateSalaryInNewDBStructure()
+        {
+            double expectedResult = 400000.00;
+            Salary salary = new Salary();
+            SalaryDetailsModel modelSal = new SalaryDetailsModel()
+            {
+                EmployeeName = "Sujecha",
+                EmployeeSalary = 400000.00
+            };
+            double EmployeeSalary = salary.updateEmployeeSalary(modelSal);
+
+            Assert.AreEqual(expectedResult, salary);
+        }
+
+        /// <summary>
+        /// UC 10 : Ensure working of retrieve perticular employeee data query in new db structure
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_whenCount_ShouldReturnCountFromNewDB()
+        {
+            int expectedResult = 12;
+            Salary salary = new Salary();
+            int result = salary.getEmployeeDataWithGivenRange();
+            Assert.AreEqual(expectedResult, result);
+        }
+
+
+        [TestMethod]
+        public void GiveQuery_WhenInsert_ShouldPerformInsertion()
+        {
+            bool expectedInsertResult = true;
+            Salary salary = new Salary();
+            SalaryDetailsModel modelSal = new SalaryDetailsModel()
+            {
+                EmployeeId = 2,
+                EmployeeName = "Prianita",
+                JobDiscription = "Finance",
+                Month = "jan",
+                EmployeeSalary = 600000.00,
+                date = new DateTime(2018, 12, 11),
+                CompanyId = 102,
+                gender = 'M',
+                SalaryId = 2
+            };
+            bool insertResult = salary.addEmployee(modelSal);
+            Assert.AreEqual(expectedInsertResult, insertResult);
         }
     }
 }
+
 
